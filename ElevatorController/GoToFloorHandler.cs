@@ -10,10 +10,10 @@ namespace ElevatorController
 {
     public class GoToFloorHandler : IHandleMessages<GoToFloor>
     {
-        public GoToFloorHandler(ElevatorRequestRegister elevatorRequestRegister, IElevatorMotionService elevatorMotionService)
+        public GoToFloorHandler(ElevatorRequestRegister elevatorRequestRegister)
         {
             _elevatorRequestRegister = elevatorRequestRegister;
-            _elevatorMotionService = elevatorMotionService;
+            
         }
         static ILog log = LogManager.GetLogger<GoToFloorHandler>();
         private ElevatorRequestRegister _elevatorRequestRegister;

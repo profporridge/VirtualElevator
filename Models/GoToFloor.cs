@@ -10,8 +10,4 @@ namespace Models
         public Floor Floor { get; set; }
         public Direction Direction {get;set;}
     }
-    public class MoveElevator : ICommand
-    {
-        public Direction Direction { get; set; }
-    }
 }

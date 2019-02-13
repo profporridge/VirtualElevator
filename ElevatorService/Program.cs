@@ -39,7 +39,7 @@ namespace ElevatorService
                         // Instantiate the command
                         var command = new GoToFloor
                         {
-                            Floor = new int()
+                            Floor = new Floor() { Id = 1}
                         };
 
                         // Send the command to the local endpoint

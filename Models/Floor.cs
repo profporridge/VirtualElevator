@@ -1,4 +1,5 @@
-﻿
+﻿namespace Models
+{
     public class Floor
     {
         public string DisplayName { get; set; }
@@ -8,3 +9,4 @@
         public int Id { get; set; }
     }
 
+}
