@@ -16,10 +16,9 @@ namespace ElevatorController
             endpointConfiguration.RegisterComponents(
     registration: configureComponents =>
     {
-        configureComponents.RegisterSingleton(new ElevatorRequestRegister(10));
+        configureComponents.RegisterSingleton(new ElevatorRequestRegister(NUMBER_OF_FLOORS));
     });
             var transport = endpointConfiguration.UseTransport<LearningTransport>();
-            var ElevatorRequestRegister = new ElevatorRequestRegister(NUMBER_OF_FLOORS);
             var endpointInstance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
            
             Console.ReadLine();

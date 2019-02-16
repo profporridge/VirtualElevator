@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElevatorController", "ElevatorController\ElevatorController.csproj", "{BA31A0E0-72DE-4125-9077-B7CF7632116A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElevatorUI", "ElevatorUI\ElevatorUI.csproj", "{659D3A62-9130-4929-BD5E-58C6A39615CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElevatorUI", "ElevatorUI\ElevatorUI.csproj", "{659D3A62-9130-4929-BD5E-58C6A39615CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElevatorMotionService", "ElevatorMotionService\ElevatorMotionService.csproj", "{0C133111-FE36-4E6E-84EF-5525FA98E965}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElevatorMotionService", "ElevatorMotionService\ElevatorMotionService.csproj", "{0C133111-FE36-4E6E-84EF-5525FA98E965}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElevatorAPI", "ElevatorAPI\ElevatorAPI.csproj", "{161B949F-4FD2-46BE-BB9E-C10D317257D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{0C133111-FE36-4E6E-84EF-5525FA98E965}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C133111-FE36-4E6E-84EF-5525FA98E965}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C133111-FE36-4E6E-84EF-5525FA98E965}.Release|Any CPU.Build.0 = Release|Any CPU
+		{161B949F-4FD2-46BE-BB9E-C10D317257D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{161B949F-4FD2-46BE-BB9E-C10D317257D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{161B949F-4FD2-46BE-BB9E-C10D317257D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{161B949F-4FD2-46BE-BB9E-C10D317257D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
