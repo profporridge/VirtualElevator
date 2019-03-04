@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 
 namespace ElevatorController
 {
-    public class GoToFloorHandler : IHandleMessages<GoToFloor>
+    
+
+    public class GoToFloorHandler : IHandleMessages<GoToFloor>,IHandleMessages<Models.Commands.SummonElevator>
     {
         public GoToFloorHandler(ElevatorRequestRegister elevatorRequestRegister)
         {
@@ -25,6 +27,15 @@ namespace ElevatorController
             _elevatorRequestRegister.SetFloor(message.Floor, message.Direction);
             
             var elevatorDispatched = new ElevatorDispatched { Floor = message.Floor, Direction = message.Direction };
+            return context.Publish(elevatorDispatched);
+        }
+
+        public Task Handle(Models.Commands.SummonElevator message, IMessageHandlerContext context)
+        {
+            log.Info($"Received SummonElevator from {message.CurrentFloor}");
+            _elevatorRequestRegister.SetFloor(message.CurrentFloor, message.RequestedDirection);
+
+            var elevatorDispatched = new ElevatorDispatched { Floor = message.CurrentFloor, Direction = message.RequestedDirection };
             return context.Publish(elevatorDispatched);
         }
     }
