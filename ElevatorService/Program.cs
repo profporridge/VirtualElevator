@@ -5,65 +5,42 @@ using NServiceBus.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
+using NServiceBus.Hosting.Helpers;
+using System;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace ElevatorService
+namespace HallwayUI
+
 {
     class Program
     {
+
+      
         static async Task Main(string[] args)
         {
-            Console.Title ="ElevatorButton";
-            var endpointConfiguration = new EndpointConfiguration("ElevatorButton");
-            var transport = endpointConfiguration.UseTransport<LearningTransport>();
-            var routing = transport.Routing();
-            routing.RouteToEndpoint(typeof(SummonElevator), "ElevatorController");
+            Console.Title = "HallwayUI";
+            var builder = Host.CreateApplicationBuilder(args);
 
-            var endpointInstance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
-            await RunLoop(endpointInstance).ConfigureAwait(false);
-            await endpointInstance.Stop().ConfigureAwait(false);
-
-        }
-
-        static ILog log = LogManager.GetLogger<Program>();
-
-        static Models.Entities.HallwayButtonPanel hallwayButtonPanel = new Models.Entities.HallwayButtonPanel();
-        static async Task RunLoop(IEndpointInstance endpointInstance)
+            var endpointConfiguration = new EndpointConfiguration("HallwayUI");
+            endpointConfiguration.UseSerialization<SystemJsonSerializer>();
+        endpointConfiguration.RegisterComponents(registration: configureComponents =>
         {
-            int currentFloor = 0;
-            log.Info("Press 'U' to go to Up, 'D' to go Down, or 'Q' to quit.");
-            while (true)
-            {
-                log.Info($"You are on floor {currentFloor}. {hallwayButtonPanel.StatusText()}");
-                
-                var key = Console.ReadKey();
-                Console.WriteLine();
+            configureComponents.AddSingleton(new BuildingService());
+        });
+            var transport = endpointConfiguration.UseTransport(new LearningTransport());
+            transport.RouteToEndpoint(typeof(RequestElevator), "ElevatorController");
+            // Fix: Ensure the UseNServiceBus extension method is available by adding the correct package and using directive
+            builder.UseNServiceBus( endpointConfiguration);
+            // Add this line:
+            builder.Services.AddHostedService<InputLoopService>();
+            //builder.Services.AddHostedService<BuildingService>();
 
-                switch (key.Key)
-                {
-                    case ConsoleKey.U:
-                    case ConsoleKey.D:
-                        // Instantiate the command
-                        var command = new SummonElevator
-                        {
-                            CurrentFloor = new Floor() { Id = currentFloor },
-                            RequestedDirection = key.Key==ConsoleKey.U? Direction.Up : Direction.Down
-                        };
+            var app = builder.Build();
 
-                        // Send the command to the local endpoint
-                        //log.Info($"Sending GoToFloor command, Floor = {command.Floor}");
-                        await endpointInstance.Send(command)
-                            .ConfigureAwait(false);
-
-                        break;
-
-                    case ConsoleKey.Q:
-                        return;
-
-                    default:
-                        log.Info("Unknown input. Please try again.");
-                        break;
-                }
-            }
+            // Uncomment and use app.RunAsync() if needed
+            await app.RunAsync();
         }
     }
 }

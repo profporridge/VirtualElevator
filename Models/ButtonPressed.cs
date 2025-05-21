@@ -7,8 +7,9 @@ namespace Models
 {
     public class ButtonPressed : IEvent
     {
-        public int Floor { get; set; }
-        public bool UpDirection { get; set; }
+        public int SourceFloor { get; set; }
+        public int DestFloor { get; set; } = -1;
+        public Direction UpDirection { get; set; }
     }
     public class ElevatorDispatched :IEvent
     {

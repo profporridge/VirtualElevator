@@ -9,7 +9,7 @@ namespace Models.Commands
     {
 
     }
-    public class SummonElevator: ICommand
+    public class RequestElevator: ICommand
     {
         public Floor CurrentFloor { get; set; }
         public Direction RequestedDirection { get; set; }
